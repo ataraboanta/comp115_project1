@@ -1,105 +1,57 @@
 import turtle
 
-# --- Setup the Turtle Screen ---
+def draw_eye(pen, side):
+    """Draws one white eye. Use side = -1 for left, side = 1 for right."""
+    pen.penup()
+    pen.goto(27 * side, -7)
+    pen.color("white")
+    pen.begin_fill()
+    pen.pendown()
+
+    pen.goto(140 * side, 53)
+    pen.goto(80 * side, -40)
+    pen.goto(67 * side, -37)
+    pen.goto(50 * side, -30)
+    pen.goto(37 * side, -17)
+    pen.goto(27 * side, -7)
+    pen.end_fill()
+
 screen = turtle.Screen()
-screen.title("Deadpool Logo - Turtle Graphics")
-# Match the exact colors from the image
-BG_COLOR = "#0D0D0F" # Very dark grey/black
-RED_COLOR = "#E61A1D" # Bright red
-screen.bgcolor(BG_COLOR)
+screen.title("Deadpool Logo")
+screen.bgcolor("#0D0D0F") 
+pen = turtle.Turtle()
+pen.speed(0)
+pen.hideturtle()
 
-# Create a turtle for drawing
-t = turtle.Turtle()
-t.hideturtle()  # Hide the turtle cursor
-t.speed(0)      # Max speed for fast drawing
+pen.color("#E61A1D")
+pen.penup()
+pen.goto(0, -200)
+pen.pendown()
+pen.begin_fill()
+pen.circle(200)
+pen.end_fill()
 
-# --- Define Helper Functions ---
-def draw_filled_circle(color, radius, x, y):
-    """Draws a solid filled circle with the center at (x, y)."""
-    t.penup()
-    t.goto(x, y - radius)
-    t.setheading(0)
-    t.color(color)
-    t.begin_fill()
-    t.pendown()
-    t.circle(radius)
-    t.penup()
-    t.end_fill()
+pen.color("black")
+pen.penup()
+pen.goto(0, -170) # 200 - 30 (ring width)
+pen.pendown()
+pen.begin_fill()
+pen.circle(170)
+pen.end_fill()
 
-def draw_filled_rect(color, width, height, center_x, center_y):
-    """Draws a vertical filled rectangle centered at (x, y)."""
-    t.color(color)
-    start_x = center_x - (width / 2)
-    start_y = center_y + (height / 2)
-    
-    t.penup()
-    t.goto(start_x, start_y)
-    t.setheading(270) # Point downwards
-    t.begin_fill()
-    t.pendown()
-    t.forward(height) # Down
-    t.left(90)
-    t.forward(width)  # Right
-    t.left(90)
-    t.forward(height) # Up
-    t.left(90)
-    t.forward(width)  # Left
-    t.end_fill()
-    t.penup()
+pen.color("#E61A1D")
+pen.penup()
+pen.goto(-18, 200) # Start at top left of the bar
+pen.pendown()
+pen.begin_fill()
+pen.goto(18, 200)  # Top right
+pen.goto(18, -200) # Bottom right
+pen.goto(-18, -200)# Bottom left
+pen.goto(-18, 200) # Back to start
+pen.end_fill()
 
-def draw_eye(is_left):
-    """Draws a single white eye shape with a curved bottom edge."""
-    t.penup()
-    t.color("white")
-    
-    # Use a direction multiplier to easily mirror the eye for the right side
-    dir = -1 if is_left else 1
-    
-    # Scaled coordinates for the sharp, angled shape
-    inner_x, inner_y = 27 * dir, -7
-    top_x, top_y = 140 * dir, 53
-    bottom_x, bottom_y = 80 * dir, -40
-    
-    # Scaled points to simulate the smooth curve on the bottom edge
-    c1_x, c1_y = 67 * dir, -37
-    c2_x, c2_y = 50 * dir, -30
-    c3_x, c3_y = 37 * dir, -17
-    
-    t.goto(inner_x, inner_y)
-    t.begin_fill()
-    t.goto(top_x, top_y)
-    t.goto(bottom_x, bottom_y)
-    # Draw the curve
-    t.goto(c1_x, c1_y)
-    t.goto(c2_x, c2_y)
-    t.goto(c3_x, c3_y)
-    t.goto(inner_x, inner_y)
-    t.end_fill()
+draw_eye(pen, -1) # Left eye
+draw_eye(pen, 1)  # Right eye
 
-# --- Logo Dimensions (Scaled down for visibility) ---
-LOGO_RADIUS = 200        # Reduced from 300
-RING_WIDTH = 30          # Reduced from 45
-VERTICAL_BAR_WIDTH = 36  # Reduced from 55
-INTERNAL_MASK_RADIUS = LOGO_RADIUS - RING_WIDTH
-
-# --- Drawing Sequence ---
-
-# 1. Draw the main RED body circle
-draw_filled_circle(RED_COLOR, LOGO_RADIUS, 0, 0)
-
-# 2. Draw the internal black shape (this automatically creates the red ring)
-draw_filled_circle("black", INTERNAL_MASK_RADIUS, 0, 0)
-
-# 3. Draw the Vertical Red Bar
-# Making the height exactly equal to the internal diameter ensures it meets the red ring perfectly
-bar_height = INTERNAL_MASK_RADIUS * 2.25
-draw_filled_rect(RED_COLOR, VERTICAL_BAR_WIDTH, bar_height, 0, 0)
-
-# 4. Draw the Left Eye (white shape)
-draw_eye(is_left=True)
-
-# 5. Draw the Right Eye (white shape, mirrored)
-draw_eye(is_left=False)
-
-# --- Keep the screen open until clicked ---
 screen.exitonclick()
+
