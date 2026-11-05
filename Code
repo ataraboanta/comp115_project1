@@ -33,7 +33,7 @@ pen.end_fill()
 
 pen.color("black")
 pen.penup()
-pen.goto(0, -170) # 200 - 30 (ring width)
+pen.goto(0, -170) 
 pen.pendown()
 pen.begin_fill()
 pen.circle(170)
@@ -41,17 +41,17 @@ pen.end_fill()
 
 pen.color("#E61A1D")
 pen.penup()
-pen.goto(-18, 200) # Start at top left of the bar
+pen.goto(-18, 200) 
 pen.pendown()
 pen.begin_fill()
-pen.goto(18, 200)  # Top right
-pen.goto(18, -200) # Bottom right
-pen.goto(-18, -200)# Bottom left
-pen.goto(-18, 200) # Back to start
+pen.goto(18, 200)  
+pen.goto(18, -200)
+pen.goto(-18, -200)
+pen.goto(-18, 200) 
 pen.end_fill()
 
-draw_eye(pen, -1) # Left eye
-draw_eye(pen, 1)  # Right eye
+draw_eye(pen, -1) 
+draw_eye(pen, 1)  
 
 screen.exitonclick()
 
